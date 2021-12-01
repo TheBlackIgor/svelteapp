@@ -1,0 +1,9 @@
+[ 
+    {"pytanie": "Kto miał najwyższą średnią w klasie 2P w roku 2020/2021", "q": ["Michał D", "Michał D", "Michał D", "Michał F"], "odp": "Michał F"}, 
+    {"pytanie": "Kto wygra worldsy 2021?", "q": ["DWG","MAD LIONS","FPX", "RNG"], "odp": "FPX"},
+    {"pytanie": "Kto nie zagra dziś na bramce", "q": ["Łukasz F","Piotr S","Filip R", "Gabryś B"], "odp": "Łukasz F"},
+    {"pytanie": "Czy Polska dzisiaj wygra?", "q": ["Tak","Nie","Może", "XD"], "odp": "XD"},
+    {"pytanie": "Czy jesteś za PiS", "q": ["Tak","Nie","Może", "XD"], "odp": "XD"},
+    {"pytanie": "Tak", "q": ["Tak","Nie","Może", "XD"], "odp": "Tak"},
+    {"pytanie": "Nie", "q": ["Tak","Nie","Może", "XD"], "odp": "Nie"}
+]
