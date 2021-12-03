@@ -1,4 +1,14 @@
 {
-    "slowa":["react","javascript","svelte","tailwind","bootstrap","html","django"],
+    "slowa":
+    [
+        {"slowo":"react", "haslo": 0},
+        {"slowo":"javascript", "haslo": 9},
+        {"slowo":"python", "haslo": 4},
+        {"slowo":"tailwind", "haslo": 1},
+        {"slowo":"bootstrap", "haslo": 8},
+        {"slowo":"angular", "haslo": 0},
+        {"slowo":"html", "haslo": 2},
+        {"slowo":"django", "haslo": 4}
+    ],
     "haslo": "program"
 }
