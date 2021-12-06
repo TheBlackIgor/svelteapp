@@ -3,24 +3,12 @@
         let URL = "./krzyzowka.json"
         let res = await fetch(URL);
         res = await res.json()
+        //res.sort(() => 0.5 - Math.random())
         console.log(res)
-        return res
+        data = res
     }
     let data = getData()
-    $:data = 
-{
-    "slowa":
-    [
-        {"slowo":"react", "haslo": 0, "posH": 1},
-        {"slowo":"javascript", "haslo": 8, "posH": 0},
-        {"slowo":"python", "haslo": 4, "posH": 2},
-        {"slowo":"bootstrap", "haslo": 6, "posH": 4},
-        {"slowo":"angular", "haslo": 0, "posH": 5},
-        {"slowo":"html", "haslo": 2, "posH": 6},
-        {"slowo":"django", "haslo": 4, "posH": 3}
-    ],
-    "haslo": "program"
-}
+
     let wordsToPrint = []
     let indexOfFinalWordLetter = []
     let helpTab = []
@@ -40,6 +28,7 @@
     function onLoadToPrint(){
         start = Date.now()
         let a = 0
+        console.log(data)
         data.slowa.forEach(item => {
             let tabWithRngPos = []
             wordsToPrint.push(item.slowo)
@@ -91,11 +80,23 @@
         alert(`Gratulacje!!!\nPrzejście tej krzyżówki zajęło Ci ${millisToMinutesAndSeconds(czas)}`)
         location.reload(true)
     }
+    let czas = start - start
+    let zebyZegarDzialal = 0
+    async function zegar(){
+        if(zebyZegarDzialal>1)
+            document.querySelector('#zegar').innerText = millisToMinutesAndSeconds(czas)
+        czas = Date.now() - start
+        zebyZegarDzialal++
+        setTimeout(zegar,1000)
+    }
 </script>
 <div class="flex flex-col justify-evenly flex-wrap">
     {#await data}
-        loading
+        <p>Wczytywanie krzyżówki...</p>
     {:then data}    
+    <div on:load={zegar()} id="zegar" class="text-white">
+            0:00
+    </div>
     <div on:load={onLoadToPrint()} class="flex flex-col text-white m-5">
         {#each wordsToPrint as slowo, j}
         <div class="flex justify-start flex-row" >
