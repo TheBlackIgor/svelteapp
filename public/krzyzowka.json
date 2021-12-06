@@ -1,14 +1,13 @@
 {
     "slowa":
     [
-        {"slowo":"react", "haslo": 0},
-        {"slowo":"javascript", "haslo": 9},
-        {"slowo":"python", "haslo": 4},
-        {"slowo":"tailwind", "haslo": 1},
-        {"slowo":"bootstrap", "haslo": 8},
-        {"slowo":"angular", "haslo": 0},
-        {"slowo":"html", "haslo": 2},
-        {"slowo":"django", "haslo": 4}
+        {"slowo":"react", "haslo": 0, "posH": 1},
+        {"slowo":"javascript", "haslo": 8, "posH": 0},
+        {"slowo":"python", "haslo": 4, "posH": 2},
+        {"slowo":"bootstrap", "haslo": 6, "posH": 4},
+        {"slowo":"angular", "haslo": 0, "posH": 5},
+        {"slowo":"html", "haslo": 2, "posH": 6},
+        {"slowo":"django", "haslo": 4, "posH": 3}
     ],
     "haslo": "program"
 }
