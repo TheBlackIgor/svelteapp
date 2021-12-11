@@ -4,16 +4,19 @@
         let res = await fetch(URL);
         res = await res.json()
         //res.sort(() => 0.5 - Math.random())
-        console.log(res)
         data = res
     }
-    let data = getData()
+    $: data = getData()
 
+
+    let originData = []
     let wordsToPrint = []
     let indexOfFinalWordLetter = []
     let helpTab = []
     let start
     let hToGuess = []
+    let letterToCheck = ""
+    let uses = 0
     function getRandomIntInt(min, max) {
         min = Math.ceil(min);
         max = Math.floor(max);
@@ -24,12 +27,34 @@
         var seconds = ((millis % 60000) / 1000).toFixed(0);
         return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
     }
+
+    function shuffle(array) {
+        let currentIndex = array.length,  randomIndex;
+
+  // While there remain elements to shuffle...
+        while (currentIndex != 0) {
+
+    // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+
+    // And swap it with the current element.
+        [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+  }
+
+  return array;
+}
     
     function onLoadToPrint(){
         start = Date.now()
         let a = 0
-        console.log(data)
-        data.slowa.forEach(item => {
+
+
+        shuffle(data.slowa)
+        originData = shuffle(data.slowa)
+
+        originData.forEach(item => {
             let tabWithRngPos = []
             wordsToPrint.push(item.slowo)
             helpTab.push(item.slowo)
@@ -67,13 +92,30 @@
         
         
     }
+
+    function checkLetter(){
+        if(uses<3){
+            console.log(letterToCheck)
+            let b = 0
+            originData.forEach(item => {
+                for(let i = 0; i<item.slowo.length;i++)
+                {
+                    if(letterToCheck == item.slowo[i] && uses<3)
+                    wordsToPrint[b][i]=item.slowo[i]
+                }
+                b++
+            })
+            uses++
+        }
+    }
+
     function hasloOnLoad(){
         for(let i = 0; i<data.haslo.length;i++)
             hToGuess.push('')
     }
     
     function changeH(posH) {
-        hToGuess[data.slowa[posH].posH] = data.slowa[posH].slowo[data.slowa[posH].haslo]
+        hToGuess[originData[posH].posH] = originData[posH].slowo[originData[posH].haslo]
     }
     function win(){
         let czas = Date.now() - start
@@ -89,6 +131,13 @@
         zebyZegarDzialal++
         setTimeout(zegar,1000)
     }
+    let files = [];
+    async function sprawdz(){
+        const text = await files[0].text()
+        let json= JSON.parse(text)
+        console.log(json)
+        data = json
+    }
 </script>
 <div class="flex flex-col justify-evenly flex-wrap">
     {#await data}
@@ -97,6 +146,13 @@
     <div on:load={zegar()} id="zegar" class="text-white">
             0:00
     </div>
+    
+    <div class="w-3/4 flex flex-row justify-start items-center text-xl text-white" id="question">
+        <label for="">Wprowadź plik z pytaniami</label>
+        <input multiple="FALSE" bind:files on:change={sprawdz()} accept="application/json" type="file" id="file">
+    </div>
+
+
     <div on:load={onLoadToPrint()} class="flex flex-col text-white m-5">
         {#each wordsToPrint as slowo, j}
         <div class="flex justify-start flex-row" >
@@ -136,6 +192,13 @@
         {/each}
         {/if}
     </div>
+
+    <div class="w-48 h-10 text-white flex flex-row justify-between items-center" >
+        <input type="text" class="w-10" bind:value={letterToCheck}>
+        <button class="text-sm h-10 w-20" on:click={()=>checkLetter()}>Check Letter</button>
+        <p>{uses}/3</p>
+    </div>
+    
     {#if hToGuess.join("")==data.haslo}
     <div on:load={win()}></div>
     {/if}

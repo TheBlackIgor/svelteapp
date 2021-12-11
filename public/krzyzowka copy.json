@@ -1,0 +1,15 @@
+{
+    "slowa":
+    [
+        {"slowo":"bootstrap", "haslo": 6, "posH": 4},
+        {"slowo":"html", "haslo": 2, "posH": 6},
+        {"slowo":"react", "haslo": 0, "posH": 1},
+        {"slowo":"parse", "haslo": 0, "posH": 0},
+        {"slowo":"google", "haslo": 0, "posH": 3},
+        {"slowo":"okulary", "haslo": 0, "posH": 2},
+        {"slowo":"aparat", "haslo": 0, "posH": 5}
+    ],
+    "haslo": "program",
+    "Access-Control-Allow-Origin" : "*", 
+    "Access-Control-Allow-Credentials" : true 
+}
