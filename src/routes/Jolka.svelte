@@ -6,7 +6,7 @@
         //res.sort(() => 0.5 - Math.random())
         data = res;
     }
-    $: data = getData();
+    $: data = getData().then((res) => onLoadToPrint());
 
     let originData = [];
     let wordsToPrint = [];
@@ -135,7 +135,7 @@
         const text = await files[0].text();
         let json = JSON.parse(text);
         console.log(json);
-        data = json;
+        data = await json;
     }
 </script>
 
@@ -160,7 +160,7 @@
             />
         </div>
 
-        <div on:load={onLoadToPrint()} class="flex flex-col text-white m-5">
+        <div class="flex flex-col text-white m-5">
             {#each wordsToPrint as slowo, j}
                 <div class="flex justify-start flex-row">
                     {#each slowo as litera, i}
