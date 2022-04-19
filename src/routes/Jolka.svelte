@@ -5,9 +5,10 @@
         res = await res.json();
         //res.sort(() => 0.5 - Math.random())
         data = res;
+        return res;
     }
-    $: data = getData().then((res) => onLoadToPrint());
-
+    //$: data = getData().then((res) => onLoadToPrint());
+    $: data = getData();
     let originData = [];
     let wordsToPrint = [];
     let indexOfFinalWordLetter = [];
@@ -54,12 +55,10 @@
         shuffle(data.slowa);
         originData = shuffle(data.slowa);
 
-        originData.forEach((item) => {
+        for (let item of originData) {
             let tabWithRngPos = [];
-            wordsToPrint.push(item.slowo);
-            helpTab.push(item.slowo);
-            wordsToPrint[a] = wordsToPrint[a].split("");
-            helpTab[a] = helpTab[a].split("");
+            wordsToPrint[a] = item.slowo.split("");
+            helpTab[a] = item.slowosplit("");
 
             for (let i = 0; i < item.slowo.length; i++) {
                 wordsToPrint[a][i] = "";
@@ -85,7 +84,7 @@
             indexOfFinalWordLetter.push(item.haslo);
             tabWithRngPos = [];
             a++;
-        });
+        }
     }
 
     function checkLetter() {
@@ -131,11 +130,13 @@
         setTimeout(zegar, 1000);
     }
     let files = [];
+
     async function sprawdz() {
         const text = await files[0].text();
         let json = JSON.parse(text);
         console.log(json);
-        data = await json;
+        data = json;
+        onLoadToPrint();
     }
 </script>
 
@@ -153,14 +154,14 @@
             <input
                 multiple="FALSE"
                 bind:files
-                on:change={sprawdz()}
+                on:change={(e) => sprawdz()}
                 accept="application/json"
                 type="file"
                 id="file"
             />
         </div>
 
-        <div class="flex flex-col text-white m-5">
+        <div on:load={onLoadToPrint()} class="flex flex-col text-white m-5">
             {#each wordsToPrint as slowo, j}
                 <div class="flex justify-start flex-row">
                     {#each slowo as litera, i}
